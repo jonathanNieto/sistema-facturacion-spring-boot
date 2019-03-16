@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <!-- navBar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" th:href="@{/list}">Spring Boot</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/list}">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/list}">Cliente</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container my-2">
+        <h1 class="border-bottom border-success" th:text="${title}"></h1>
+        <form th:action="@{/form}" th:object="${client}" method="POST">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Nombre</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" placeholder="Nombre" th:field="*{name}"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="lastname" class="col-sm-2 col-form-label">Apellidos</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="lastname" placeholder="Apellidos" th:field="*{lastname}"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" placeholder="Email" th:field="*{email}"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input type="submit" class="btn btn-primary" value="Guardar"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
