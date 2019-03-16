@@ -4,29 +4,51 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title th:text="${titulo}"></title>
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 </head>
 <body>
-    <h1 th:text="${titulo}"></h1>
-    <table>
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>nombre</th>
-                <th>apellidos</th>
-                <th>email</th>
-                <th>fecha</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="client : ${clients}">
-                <td th:text="${client.id}"></td>
-                <td th:text="${client.name}"></td>
-                <td th:text="${client.lastname}"></td>
-                <td th:text="${client.email}"></td>
-                <td th:text="${client.createAt}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- navBar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" th:href="@{/list}">Spring Boot</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/list}">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/list}">Cliente</a>
+                </li>
+            </ul>        
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="border-bottom border-success" th:text="${title}"></h1>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>nombre</th>
+                    <th>apellidos</th>
+                    <th>email</th>
+                    <th>fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="client : ${clients}">
+                    <td th:text="${client.id}"></td>
+                    <td th:text="${client.name}"></td>
+                    <td th:text="${client.lastname}"></td>
+                    <td th:text="${client.email}"></td>
+                    <td th:text="${client.createAt}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
