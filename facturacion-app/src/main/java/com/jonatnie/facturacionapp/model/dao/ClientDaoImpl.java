@@ -26,4 +26,10 @@ public class ClientDaoImpl implements IClientDao {
         return clientList;
     }
 
+    @Override
+    @Transactional
+    public void save(Client client) {
+        entityManager.persist(client);
+    }
+
 }
