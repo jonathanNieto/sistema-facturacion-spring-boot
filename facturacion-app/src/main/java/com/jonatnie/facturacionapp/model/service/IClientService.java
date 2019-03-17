@@ -1,15 +1,15 @@
-package com.jonatnie.facturacionapp.model.dao;
+package com.jonatnie.facturacionapp.model.service;
 
 import java.util.List;
 
 import com.jonatnie.facturacionapp.model.entity.Client;
 
 /**
- * IClientDao
+ * IClientService
  */
-public interface IClientDao {
+public interface IClientService {
 
-    public List<Client> findAll(); 
+    public List<Client> findAll();
 
     public Client findOne(Long id);
     

@@ -5,8 +5,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import com.jonatnie.facturacionapp.model.dao.IClientDao;
 import com.jonatnie.facturacionapp.model.entity.Client;
+import com.jonatnie.facturacionapp.model.service.IClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,11 +26,11 @@ import org.springframework.web.bind.support.SessionStatus;
 public class ClientController {
 
     @Autowired
-    private IClientDao clientDao;
+    private IClientService clientService;
 
     @RequestMapping(value="/list", method=RequestMethod.GET)
     public String list(Model model) {
-        List<Client> clientList = clientDao.findAll();
+        List<Client> clientList = clientService.findAll();
         model.addAttribute("title", "Listado de clientes");
         model.addAttribute("clients", clientList);
         return "list";
@@ -49,7 +49,7 @@ public class ClientController {
         Client client = null;
 
         if (id > 0) {
-            client = clientDao.findOne(id);
+            client = clientService.findOne(id);
         }else{
             return "redirect:/list";
         }
@@ -64,7 +64,7 @@ public class ClientController {
             model.addAttribute("title", "Formulario Cliente");
             return "form";
         }
-        clientDao.save(client);
+        clientService.save(client);
         sessionStatus.setComplete();
         return "redirect:/list";
     }
@@ -72,7 +72,7 @@ public class ClientController {
     @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
     public String delete(@PathVariable(value = "id") Long id) {
         if (id > 0) {
-            clientDao.delete(id);
+            clientService.delete(id);
         }
         return "redirect:/list";
     }
