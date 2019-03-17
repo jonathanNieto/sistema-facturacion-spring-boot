@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -69,6 +68,13 @@ public class ClientController {
         sessionStatus.setComplete();
         return "redirect:/list";
     }
-    
+
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+    public String delete(@PathVariable(value = "id") Long id) {
+        if (id > 0) {
+            clientDao.delete(id);
+        }
+        return "redirect:/list";
+    }
     
 }
