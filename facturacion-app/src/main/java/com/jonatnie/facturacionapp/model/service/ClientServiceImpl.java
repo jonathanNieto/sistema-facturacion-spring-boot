@@ -21,7 +21,7 @@ public class ClientServiceImpl implements IClientService {
     @Override
     @Transactional(readOnly = true)
     public List<Client> findAll() {
-        List<Client> clienList = clientDao.findAll();
+        List<Client> clienList = (List<Client>) clientDao.findAll();
         return clienList;
     }
     
