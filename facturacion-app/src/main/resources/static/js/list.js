@@ -9,6 +9,12 @@ $(document).ready(function () {
 
     $(document).ready( function () {
         $('.all-data-tables').DataTable({
+            "columnDefs": [{
+                "targets": [5, 6], // column index (start from 0)
+                "orderable": false, // set orderable false for selected columns
+            }],
+            "pagingType": "full_numbers",
+            "lengthMenu": [[1, 2, 5, -1], [1, 2, 5, "todos los"]],
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
