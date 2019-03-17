@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title th:text="'Spring Boot: MVC + Thymeleaf + Data JPA. ' + ${title}"></title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
     <!-- datatables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" th:href="@{css/dataTables.bootstrap4.min.css}" />
 </head>
 <body>
     <!-- navBar -->
@@ -32,17 +32,16 @@
         </nav>
     </header>    
 
-    <footer th:fragment="footer" class="badge-dark">
-            <hr />
+    <footer th:fragment="footer">
             <p class="">
                 <img th:src="@{img/spring-boot-logo.png}" width="50px" alt="spring boot" class="" />
                 Este proyecto fue desarrollado en Visual Studio Code + Spring Plugins + Java Plugins por Jonathan Nieto, &copy; 2019
             </p>
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+            <script th:src="@{js/jquery-3.3.1.min.js}"></script>
+            <script th:src="@{js/popper.min.js}"></script>
+            <script th:src="@{js/bootstrap.min.js}"></script>
+            <script th:src="@{js/jquery.dataTables.min.js}"></script>
+            <script th:src="@{js/dataTables.bootstrap4.min.js}"></script>
             <script th:src="@{js/list.js}"></script>
     </footer>
 
