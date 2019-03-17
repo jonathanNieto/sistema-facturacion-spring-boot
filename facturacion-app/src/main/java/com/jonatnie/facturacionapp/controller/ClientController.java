@@ -12,15 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 /**
  * ClientController
  */
 @Controller
+@SessionAttributes("client")
 public class ClientController {
 
     @Autowired
@@ -41,14 +44,29 @@ public class ClientController {
         model.put("title", "Formulario Cliente");
         return "form";
     }
+    @RequestMapping(value="/form/{id}", method=RequestMethod.GET)
+    public String edit(@PathVariable(value = "id") Long id, Map<String, Object> model) {
+
+        Client client = null;
+
+        if (id > 0) {
+            client = clientDao.findOne(id);
+        }else{
+            return "redirect:/list";
+        }
+        model.put("title", "Editando Cliente");
+        model.put("client", client);
+        return "form";
+    }
     
     @RequestMapping(value="/form", method=RequestMethod.POST)
-    public String save(@Valid Client client, BindingResult bindingResult, Model model) {
+    public String save(@Valid Client client, BindingResult bindingResult, Model model, SessionStatus sessionStatus) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Formulario Cliente");
             return "form";
         }
         clientDao.save(client);
+        sessionStatus.setComplete();
         return "redirect:/list";
     }
     

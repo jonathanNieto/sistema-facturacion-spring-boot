@@ -38,6 +38,7 @@
                     <th>apellidos</th>
                     <th>email</th>
                     <th>fecha</th>
+                    <th>editar</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,6 +48,7 @@
                     <td th:text="${client.lastname}"></td>
                     <td th:text="${client.email}"></td>
                     <td th:text="${client.createAt}"></td>
+                    <td><a class="btn btn-success" th:href="@{/form/} + ${client.id}">Editar</a></td>
                 </tr>
             </tbody>
         </table>
