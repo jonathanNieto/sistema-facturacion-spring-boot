@@ -14,7 +14,7 @@ $(document).ready(function () {
                 "orderable": false, // set orderable false for selected columns
             }],
             "pagingType": "full_numbers",
-            "lengthMenu": [[3, 5, 10, -1], [3, 5, 10, "todos los"]],
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "todos los"]],
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
