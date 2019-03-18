@@ -1,0 +1,9 @@
+/* take message from data-label and put it in the label at form view */
+.custom-file-input~.custom-file-label::after {
+    content: attr(data-label);
+}
+
+/* client image at detail view */
+img.detail-view{
+    height: 200px;
+}

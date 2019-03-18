@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+    <header th:replace="layout/layout :: header"></header>
+
+    <div class="container my-4">
+        <div class="card bg-light">
+            <div class="card-header" th:text="${title}"></div>
+            <div class="card-body row">
+                <img th:src="@{'/upload/' + ${client.photo}}" th:alt="${client.photo}" th:if="${#strings.length(client.photo) > 0}" class="col-3 detail-view rounded img-fluid img-thumbnail"/>
+                <ul class="col-9 list-group">
+                    <li class="list-group-item" th:text="${client.name}"></li>
+                    <li class="list-group-item" th:text="${client.lastname}"></li>
+                    <li class="list-group-item" th:text="${client.email}"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
