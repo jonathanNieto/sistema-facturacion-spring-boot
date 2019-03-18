@@ -1,5 +1,9 @@
 package com.jonatnie.facturacionapp.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +19,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -68,10 +74,25 @@ public class ClientController {
 
     @RequestMapping(value = "/form", method = RequestMethod.POST)
     public String save(@Valid Client client, BindingResult bindingResult, Model model,
-            RedirectAttributes redirectAttributes, SessionStatus sessionStatus) {
+            @RequestParam("file") MultipartFile photo, RedirectAttributes redirectAttributes,
+            SessionStatus sessionStatus) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Formulario Cliente");
             return "form";
+        }
+        if (!photo.isEmpty()) {
+            Path resourcesDirectory = Paths.get("src//main//resources//static/upload");
+            String rootPath = resourcesDirectory.toFile().getAbsolutePath();
+            try {
+                byte[] bytes = photo.getBytes();
+                Path fullRoot = Paths.get(rootPath + "//" + photo.getOriginalFilename());
+                Files.write(fullRoot, bytes);
+                redirectAttributes.addFlashAttribute("info", "Ha subido correctamente '" + photo.getOriginalFilename() + "'");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            client.setPhoto(photo.getOriginalFilename());
         }
         String messageFlash = (client.getId() == null) ? "Cliente creado con éxito." : "Cliente editado con éxito.";
         clientService.save(client);

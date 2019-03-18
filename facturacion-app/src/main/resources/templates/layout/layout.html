@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title th:text="'Spring Boot: MVC + Thymeleaf + Data JPA. ' + ${title}"></title>
+    <link rel="stylesheet" th:href="@{/css/form.css}" />
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
     <!-- datatables -->
     <link rel="stylesheet" th:href="@{/css/dataTables.bootstrap4.min.css}" />
@@ -42,7 +43,7 @@
 
     <footer th:fragment="footer">
         <p class="">
-            <img th:src="@{img/spring-boot-logo.png}" width="50px" alt="spring boot" class="" />
+            <img th:src="@{/img/spring-boot-logo.png}" width="50px" alt="spring boot" class="" />
             Este proyecto fue desarrollado en Visual Studio Code + Spring Plugins + Java Plugins por Jonathan Nieto,
             &copy; 2019
         </p>

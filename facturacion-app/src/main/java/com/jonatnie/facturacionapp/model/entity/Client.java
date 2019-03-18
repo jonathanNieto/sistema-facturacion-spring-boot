@@ -44,6 +44,7 @@ public class Client implements Serializable {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createAt;
+    private String photo;
 
     @PrePersist
     public void prePersist() {
@@ -120,4 +121,19 @@ public class Client implements Serializable {
         this.createAt = createAt;
     }
 
+    /**
+     * @return the photo
+     */
+    public String getPhoto() {
+        return photo;
+    }
+
+    /**
+     * @param photo the photo to set
+     */
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    
 }
