@@ -6,12 +6,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
 import com.jonatnie.facturacionapp.model.entity.Client;
 import com.jonatnie.facturacionapp.model.service.IClientService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +39,9 @@ public class ClientController {
 
     @Autowired
     private IClientService clientService;
+
+    /* This is only for developing  TODO: remove before deploy*/
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @GetMapping(value="/detail/{id}")
     public String detail(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes redirectAttributes) {
@@ -98,18 +104,20 @@ public class ClientController {
             return "form";
         }
         if (!photo.isEmpty()) {
-            String rootPath = "/home/jonathan/temp/upload/";
-            try {
-                byte[] bytes = photo.getBytes();
-                Path fullRoot = Paths.get(rootPath + "//" + photo.getOriginalFilename());
-                Files.write(fullRoot, bytes);
-                redirectAttributes.addFlashAttribute("info",
-                        "Ha subido correctamente '" + photo.getOriginalFilename() + "'");
+            String uniqueFilename = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();
+            Path rootPath = Paths.get("upload").resolve(uniqueFilename);
+            Path rootAbsolutePath = rootPath.toAbsolutePath();
+            /* This is only for developing TODO: remove before deploy */
+            log.info("rootPath: " + rootPath);
+            log.info("rootAbsolutePath: "+ rootAbsolutePath);
+                try {
+                Files.copy(photo.getInputStream(), rootAbsolutePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            client.setPhoto(photo.getOriginalFilename());
+                redirectAttributes.addFlashAttribute("info", "Ha subido correctamente '" + uniqueFilename + "'");
+            
+            client.setPhoto(uniqueFilename);
         }
         String messageFlash = (client.getId() == null) ? "Cliente creado con éxito." : "Cliente editado con éxito.";
         clientService.save(client);
