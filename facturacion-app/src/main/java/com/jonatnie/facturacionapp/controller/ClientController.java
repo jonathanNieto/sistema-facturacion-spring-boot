@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 /**
  * ClientController
@@ -34,6 +36,21 @@ public class ClientController {
 
     @Autowired
     private IClientService clientService;
+
+    @GetMapping(value="/detail/{id}")
+    public String detail(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes redirectAttributes) {
+
+        Client client = clientService.findOne(id);
+        if (client == null) {
+            redirectAttributes.addFlashAttribute("error", "Cliente no encontrado");
+            return "redirect:/list";
+        }
+
+        model.put("client", client);
+        model.put("title", "Detalle del cliente: " + client.getName());
+        return "detail";
+    }
+    
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
@@ -87,7 +104,8 @@ public class ClientController {
                 byte[] bytes = photo.getBytes();
                 Path fullRoot = Paths.get(rootPath + "//" + photo.getOriginalFilename());
                 Files.write(fullRoot, bytes);
-                redirectAttributes.addFlashAttribute("info", "Ha subido correctamente '" + photo.getOriginalFilename() + "'");
+                redirectAttributes.addFlashAttribute("info",
+                        "Ha subido correctamente '" + photo.getOriginalFilename() + "'");
             } catch (IOException e) {
                 e.printStackTrace();
             }
