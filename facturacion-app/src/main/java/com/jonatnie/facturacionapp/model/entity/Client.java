@@ -1,7 +1,6 @@
 package com.jonatnie.facturacionapp.model.entity;
 
 import java.io.Serializable;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

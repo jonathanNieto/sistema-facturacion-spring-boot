@@ -13,3 +13,13 @@ INSERT INTO clients (id, name, lastname, email, create_at, photo) VALUES(12, 'Ty
 INSERT INTO clients (id, name, lastname, email, create_at, photo) VALUES(13, 'Emile', 'Kris', 'Modesta.Christiansen84@hotmail.com', '2017-08-28', '');
 INSERT INTO clients (id, name, lastname, email, create_at, photo) VALUES(14, 'Berry', 'Zemlak', 'Bailee.Shields@hotmail.com', '2017-08-28', '');
 
+INSERT INTO products(name, cost, create_at) VALUES('Sin marca Acero Bike', '810.00', '2019-03-20');
+INSERT INTO products(name, cost, create_at) VALUES('Increíble Fresco Pantalones', '350.00', '2019-03-20');
+INSERT INTO products(name, cost, create_at) VALUES('Hecho a mano Madera Pantalones', '200.00', '2019-03-20');
+INSERT INTO products(name, cost, create_at) VALUES('Artesanal Hormigón Presidente', '240.00', '2019-03-20');
+INSERT INTO products(name, cost, create_at) VALUES('Inteligente Metal Bike', '55.00', '2019-03-20');
+INSERT INTO products(name, cost, create_at) VALUES('Increíble Cotton Tocino', '776.00', '2019-03-20');
+INSERT INTO products(name, cost, create_at) VALUES('Genérica Cotton Ensalada', '133.00', '2019-03-20');
+INSERT INTO products(name, cost, create_at) VALUES('Sin marca Cotton Pescado', '136.00', '2019-03-20');
+INSERT INTO products(name, cost, create_at) VALUES('Práctica Fresco Camisa', '385.00', '2019-03-20');
+INSERT INTO products(name, cost, create_at) VALUES('Sabrosa Cotton Toallas', '679.00', '2019-03-20');

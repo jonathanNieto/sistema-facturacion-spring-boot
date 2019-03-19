@@ -3,9 +3,12 @@ package com.jonatnie.facturacionapp.model.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,7 +23,9 @@ public class ItemInvoice implements Serializable {
     private Long id;
     private Double quantity;
 
-    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
     
     /**
      * @return the id
@@ -51,7 +56,7 @@ public class ItemInvoice implements Serializable {
     }
 
     protected Double calculateAmount() {
-        return this.quantity.doubleValue();
+        return this.quantity.doubleValue() * product.getCost();
     }
 
     private static final long serialVersionUID = 1L;

@@ -144,6 +144,15 @@ public class Invoice implements Serializable{
     protected void addItemInvoice(ItemInvoice item) {
         this.itemList.add(item);
     }
+
+    public Double getTotal(){
+        Double total = 0.0;
+        int size = this.itemList.size();
+        for (int i = 0; i < size; i++) {
+            total += itemList.get(i).calculateAmount();
+        }
+        return total;
+    }
     
     private static final long serialVersionUID = 1L;
 }
