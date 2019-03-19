@@ -9,20 +9,20 @@ btnBack.addEventListener('click', goBack);
 /* jquery ui */
 $(document).ready(function () {
     $("#find-product").autocomplete({
-        source: function (request, reponse) {
+        source: function (request, response) {
             $.ajax({
                 url: "/invoice/load-products/" + request.term,
-                dataType: "jason",
+                dataType: "json",
                 data: {
                     term: request.term
                 },
                 success: function (data) {
-                    Response($.map(data, function (item) {  
+                    response($.map(data, function (item) {  
                         return {
                             value: item.id,
                             label: item.name,
                             cost: item.cost
-                        }
+                        };
                     }));
                 }
             });
@@ -30,6 +30,6 @@ $(document).ready(function () {
         select: function (event, ui) { 
             $("#find-product").val(ui.item.label);
             return false;
-         }
+        }
     });
 });
