@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="layout/layout :: head">
 </head>
+
 <body>
     <header th:replace="layout/layout :: header"></header>
 
     <div class="container my-4">
         <div class="card bg-light">
             <div class="card-header" th:text="${title}"></div>
-            <div class="card-body row">
-                <img th:src="@{'/upload/' + ${client.photo}}" th:alt="${client.photo}" th:if="${#strings.length(client.photo) > 0}" class="col-3 detail-view rounded img-fluid img-thumbnail"/>
-                <ul class="col-9 list-group">
-                    <li class="list-group-item" th:text="${client.name}"></li>
-                    <li class="list-group-item" th:text="${client.lastname}"></li>
-                    <li class="list-group-item" th:text="${client.email}"></li>
-                    <li class="list-group-item" th:text="${client.createAt}"></li>
-                </ul>
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="card-title">
+                        <a class="btn btn-success" th:href="@{/invoice/form/} + ${client.id}">
+                            <i class="fas fa-folder-plus">&nbsp; Factura</i>
+                        </a>
+                    </h4>
+                </div>
+                <div class="row">
+                    <img th:src="@{'/upload/' + ${client.photo}}" th:alt="${client.photo}" th:if="${#strings.length(client.photo) > 0}" class="col-3 detail-view rounded img-fluid img-thumbnail"/>
+                    <ul class="col-9 list-group">
+                        <li class="list-group-item" th:text="${client.name}"></li>
+                        <li class="list-group-item" th:text="${client.lastname}"></li>
+                        <li class="list-group-item" th:text="${client.email}"></li>
+                        <li class="list-group-item" th:text="${client.createAt}"></li>
+                    </ul>
+                </div>
 
                 <div th:if="${#lists.isEmpty(client.invoiceList)}" class="alert alert-info my-4" th:text="'No hay  facturas asignadas para el cliente ' + ${client.name} + ' ' + ${client.lastname}">
 
                 </div>
-                <table th:if="${not #lists.isEmpty(client.invoiceList)}" class="table table-hover table-striped">
+                <table th:if="${not #lists.isEmpty(client.invoiceList)}" class="table table-hover table-striped my-3">
                     <thead>
                         <tr>
                             <th>folio</th>

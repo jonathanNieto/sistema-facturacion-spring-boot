@@ -10,6 +10,7 @@
             <div class="card-header" th:text="${title}"></div>
             <div class="card-body">
                 <h4 class="card-title"></h4>
+                <button class="btn btn-info mb-4" id="btn-back"><i class="fas fa-angle-double-left"></i> &nbsp;Volver</button>
                 <form th:action="@{/invoice/fomr}" th:object="${invoice}" method="POST">
                     <div class="form-group row">
                         <label for="client" class="col-sm-2 col-form-label">Cliente</label>
@@ -39,5 +40,6 @@
         </div>
     </div>
     <footer th:replace="layout/layout :: footer"></footer>
+    <script th:src="@{/js/invoice-form.js}"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@ $(document).ready(function () {
     $(document).ready( function () {
         $('.all-data-tables').DataTable({
             "columnDefs": [{
-                "targets": [5, 6], // column index (start from 0)
+                "targets": [5, 6,7], // column index (start from 0)
                 "orderable": false, // set orderable false for selected columns
             }],
             "pagingType": "full_numbers",

@@ -10,17 +10,18 @@
         <div class="card bg-light my-3">
             <div class="card-header h1" th:text="${title}"></div>
             <div class="card-body">
-                <a class="btn btn-primary mb-2" th:href="@{/form}">Nuevo</a>
+                <a class="btn btn-primary mb-2" th:href="@{/form}"><i class="fas fa-user-plus"></i></a>
                 <table class="table table-striped table-hover all-data-tables my-2">
                     <thead>
                         <tr>
                             <th>id</th>
-                            <th>nombre</th>
-                            <th>apellidos</th>
-                            <th>email</th>
-                            <th>fecha</th>
-                            <th>editar</th>
-                            <th>eliminar</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Email</th>
+                            <th>Fecha</th>
+                            <th>Factura</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,8 +31,9 @@
                             <td th:text="${client.lastname}"></td>
                             <td th:text="${client.email}"></td>
                             <td th:text="${client.createAt}"></td>
-                            <td><a class="btn btn-success" th:href="@{/form/} + ${client.id}">Editar</a></td>
-                            <td><a class="btn btn-danger delBtn" th:href="@{/delete/} + ${client.id}">Eliminar</a></td>
+                            <td><a class="btn btn-success" th:href="@{/invoice/form/} + ${client.id}"><i class="fas fa-folder-plus"></i></a></td>
+                            <td><a class="btn btn-primary" th:href="@{/form/} + ${client.id}"><i class="fas fa-edit"></i></a></td>
+                            <td><a class="btn btn-danger delBtn" th:href="@{/delete/} + ${client.id}"><i class="fas fa-user-times"></i></a></td>
                         </tr>
                     </tbody>
                 </table>
