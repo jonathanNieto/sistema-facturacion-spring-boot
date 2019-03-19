@@ -7,3 +7,9 @@
 img.detail-view{
     height: 200px;
 }
+
+/* invoice textarea in form view */
+.form-group > div > textarea{
+    min-height: 100px;
+    max-height: 500px;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">    
+</head>
+<body>
+    <header th:replace="layout/layout :: header"></header>
+
+    <div class="container my-4">
+        <div class="card bg-light">
+            <div class="card-header" th:text="${title}"></div>
+            <div class="card-body">
+                <h4 class="card-title"></h4>
+                <form th:action="@{/invoice/fomr}" th:object="${invoice}" method="POST">
+                    <div class="form-group row">
+                        <label for="client" class="col-sm-2 col-form-label">Cliente</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="client" disabled="disabled" th:value="${invoice.client.name} + ' ' + ${invoice.client.lastname}"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="description" class="col-sm-2 col-form-label">Descripción</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="description" placeholder="Descripción"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="remark" class="col-sm-2 col-form-label">Observación</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="remark" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="submit" class="btn btn-primary" value="Crear Factura"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
