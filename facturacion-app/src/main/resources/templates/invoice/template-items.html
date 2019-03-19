@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <table class="table table-hover table-striped d-none" th:fragment="itemsInvoice">
+        <tbody id="temaplate-items-invoice">
+            <td class="d-none">
+                <input type="hidden" name="item_id[]" value="{ID}"/>
+            </td>
+            <td>{NOMBRE}</td>
+            <td>{PRECIO}</td>
+            <td>
+                <input type="number" name="quantity[]" id="quantity_{ID}" class="form-control col-sm-4"/>
+            </td>
+        </tbody>
+    </table>    
+</body>
+</html>
