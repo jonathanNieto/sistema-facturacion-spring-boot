@@ -52,7 +52,7 @@ public class ClientServiceImpl implements IClientService {
     @Override
     public List<Product> findByName(String term) {
         /* return productDao.findByName(term); */
-        return productDao.findByNameLikeIgnoreCase(term + "%");
+        return productDao.findByNameLikeIgnoreCase("%" + term + "%");
     }
 
     

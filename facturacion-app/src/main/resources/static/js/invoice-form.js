@@ -28,7 +28,19 @@ $(document).ready(function () {
             });
         },
         select: function (event, ui) { 
-            $("#find-product").val(ui.item.label);
+            //$("#find-product").val(ui.item.label);
+            var line = $("#template-items-invoice").html();
+            alert(line);
+            console.log(line);
+            line = line.replace(/{ID}/g, ui.item.value);
+            console.log(line);
+            line = line.replace(/{NOMBRE}/g, ui.item.label);
+            console.log(line);
+            line = line.replace(/{PRECIO}/g, "$" + ui.item.cost);
+            console.log(line);
+
+            $("#load-item-products tbody").append(line);
+            $("#find-product").val('');
             return false;
         }
     });

@@ -37,6 +37,18 @@
                         </div>
                     </div>
                     <table th:replace="invoice/template-items :: itemsInvoice"></table>
+                    <table id="load-item-products" class="table table-hover table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <td>Nombre</td>
+                                <td>Precio</td>
+                                <td>Cantidad</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
                     <div class="form-group row">
                         <div class="col-sm-10">
                             <input type="submit" class="btn btn-primary" value="Crear Factura"/>
