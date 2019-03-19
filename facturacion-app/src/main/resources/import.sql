@@ -23,3 +23,14 @@ INSERT INTO products(name, cost, create_at) VALUES('Genérica Cotton Ensalada', 
 INSERT INTO products(name, cost, create_at) VALUES('Sin marca Cotton Pescado', '136.00', '2019-03-20');
 INSERT INTO products(name, cost, create_at) VALUES('Práctica Fresco Camisa', '385.00', '2019-03-20');
 INSERT INTO products(name, cost, create_at) VALUES('Sabrosa Cotton Toallas', '679.00', '2019-03-20');
+
+
+/* some invoices */
+INSERT INTO invoices(description, remark, client_id, create_at) VALUES('Factura Acero Guantes', 'withdrawal Indian Rupee Ngultrum', 1, NOW());
+INSERT INTO items_invoice(quantity, invoice_id, product_id) VALUES(1,1,1);
+INSERT INTO items_invoice(quantity, invoice_id, product_id) VALUES(2,1,4);
+INSERT INTO items_invoice(quantity, invoice_id, product_id) VALUES(1,1,5);
+INSERT INTO items_invoice(quantity, invoice_id, product_id) VALUES(1,1,7);
+
+INSERT INTO invoices(description, remark, client_id, create_at) VALUES('Factura Pequeño Madera Tocino', 'bypassing virtual', 1, NOW());
+INSERT INTO items_invoice(quantity, invoice_id, product_id) VALUES(3, 2, 6);

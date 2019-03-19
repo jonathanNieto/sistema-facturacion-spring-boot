@@ -14,7 +14,30 @@
                     <li class="list-group-item" th:text="${client.name}"></li>
                     <li class="list-group-item" th:text="${client.lastname}"></li>
                     <li class="list-group-item" th:text="${client.email}"></li>
+                    <li class="list-group-item" th:text="${client.createAt}"></li>
                 </ul>
+
+                <div th:if="${#lists.isEmpty(client.invoiceList)}" class="alert alert-info my-4" th:text="'No hay  facturas asignadas para el cliente ' + ${client.name} + ' ' + ${client.lastname}">
+
+                </div>
+                <table th:if="${not #lists.isEmpty(client.invoiceList)}" class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>folio</th>
+                            <th>descripcion</th>
+                            <th>fecha</th>
+                            <th>total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="invoice : ${client.invoiceList}">
+                            <td th:text="${invoice.id}"></td>
+                            <td th:text="${invoice.description}"></td>
+                            <td th:text="${invoice.createAt}"></td>
+                            <td th:text="'$'+${invoice.total}"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
