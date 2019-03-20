@@ -3,6 +3,8 @@ package com.jonatnie.facturacionapp.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import com.jonatnie.facturacionapp.model.entity.Client;
 import com.jonatnie.facturacionapp.model.entity.Invoice;
 import com.jonatnie.facturacionapp.model.entity.ItemInvoice;
@@ -11,6 +13,8 @@ import com.jonatnie.facturacionapp.model.service.IClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,12 +59,25 @@ public class InvoiceController {
         return clientService.findByName(term);
     }
     
-    @PostMapping(value="/form")
-    public String save(Invoice invoice, @RequestParam(name = "item_id[]") Long[] itemIds,
-                        @RequestParam(name = "quantity[]") Integer[] quantities,
+    @PostMapping("/form")
+    public String save(@Valid Invoice invoice, 
+                        BindingResult bindingResult,
+                        Model model,
+                        @RequestParam(name = "item_id[]", required = false) Long[] itemIds,
+                        @RequestParam(name = "quantity[]", required = false) Integer[] quantities,
                         RedirectAttributes redirectAttributes,
                         SessionStatus sessionStatus) {
 
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Crear Factura");
+            return "invoice/form";
+        }
+        if (itemIds == null || itemIds.length == 0) {
+            model.addAttribute("title", "Crear Factura");
+            model.addAttribute("error", "La factura no puede crearse sin productos");
+            /* return "redirect:/invoice/form/" + invoice.getClient().getId(); */
+            return "invoice/form";
+        }
         for (int i = 0; i < itemIds.length; i++) {
             Product product = clientService.findProductById(itemIds[i]);
 
