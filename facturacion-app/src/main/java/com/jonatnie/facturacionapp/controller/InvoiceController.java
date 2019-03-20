@@ -37,6 +37,21 @@ public class InvoiceController {
     @Autowired
     private IClientService clientService;
 
+    @GetMapping(value="/detail/{id}")
+    public String detail(@PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) {
+
+        Invoice invoice = clientService.findInvoiceById(id);
+        if (invoice == null) {
+            redirectAttributes.addFlashAttribute("error", "Factura no encontrada");
+            return "redirect:/list";
+        }
+
+        model.addAttribute("invoice", invoice);
+        model.addAttribute("title", "Factura: " + invoice.getDescription());
+        return "invoice/ver";
+    }
+    
+
     @GetMapping(value = "/form/{clientId}")
     public String create(@PathVariable(value = "clientId") Long id, Map<String, Object> model, RedirectAttributes redirectAttributes) {
         Client client = clientService.findOne(id);
