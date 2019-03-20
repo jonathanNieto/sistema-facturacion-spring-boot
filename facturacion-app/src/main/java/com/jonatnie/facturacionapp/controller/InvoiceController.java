@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.jonatnie.facturacionapp.model.entity.Client;
 import com.jonatnie.facturacionapp.model.entity.Invoice;
+import com.jonatnie.facturacionapp.model.entity.ItemInvoice;
 import com.jonatnie.facturacionapp.model.entity.Product;
 import com.jonatnie.facturacionapp.model.service.IClientService;
 
@@ -13,9 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 /**
  * InvoiceController
@@ -50,6 +55,27 @@ public class InvoiceController {
         return clientService.findByName(term);
     }
     
+    @PostMapping(value="/form")
+    public String save(Invoice invoice, @RequestParam(name = "item_id[]") Long[] itemIds,
+                        @RequestParam(name = "quantity[]") Integer[] quantities,
+                        RedirectAttributes redirectAttributes,
+                        SessionStatus sessionStatus) {
+
+        for (int i = 0; i < itemIds.length; i++) {
+            Product product = clientService.findProductById(itemIds[i]);
+
+            ItemInvoice itemInvoice = new ItemInvoice();
+            itemInvoice.setQuantity(quantities[i]);
+            itemInvoice.setProduct(product);
+            invoice.addItemInvoice(itemInvoice);
+        }
+
+        clientService.saveInvoice(invoice);
+        sessionStatus.setComplete();
+        redirectAttributes.addFlashAttribute("success", "Factura creada con éxito");
+
+        return "redirect:/detail/" + invoice.getClient().getId();
+    }
     
     
 }

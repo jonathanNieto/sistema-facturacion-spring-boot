@@ -52,6 +52,12 @@ btnBack.addEventListener('click', goBack);
         }
     });
 
+    $("form").submit(function (e) { 
+        /* e.preventDefault(); */
+        $("#template-items-invoice").remove();
+        return;
+    });
+
     var itemsHelper = {
         calculateAmount: function (id, cost, quantity) {
             $("#total_amount_" + id).html(parseFloat(cost) * parseFloat(quantity));

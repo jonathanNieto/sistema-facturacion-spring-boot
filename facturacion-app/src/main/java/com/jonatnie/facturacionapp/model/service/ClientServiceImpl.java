@@ -67,5 +67,10 @@ public class ClientServiceImpl implements IClientService {
         invoiceDao.save(invoice);
     }
 
+    @Override
+    public Product findProductById(Long id) {
+        return productDao.findOne(id);
+    }
+
     
 }

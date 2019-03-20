@@ -141,7 +141,7 @@ public class Invoice implements Serializable{
         this.itemList = itemList;
     }
 
-    protected void addItemInvoice(ItemInvoice item) {
+    public void addItemInvoice(ItemInvoice item) {
         this.itemList.add(item);
     }
 

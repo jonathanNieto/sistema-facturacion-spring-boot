@@ -21,7 +21,7 @@ public class ItemInvoice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Double quantity;
+    private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
@@ -44,14 +44,14 @@ public class ItemInvoice implements Serializable {
     /**
      * @return the quantity
      */
-    public Double getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
     
     /**
      * @param quantity the quantity to set
      */
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -59,5 +59,20 @@ public class ItemInvoice implements Serializable {
         return this.quantity.doubleValue() * product.getCost();
     }
 
+    
+    /**
+     * @return the product
+     */
+    public Product getProduct() {
+        return product;
+    }
+    
+    /**
+     * @param product the product to set
+     */
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    
     private static final long serialVersionUID = 1L;
 }
