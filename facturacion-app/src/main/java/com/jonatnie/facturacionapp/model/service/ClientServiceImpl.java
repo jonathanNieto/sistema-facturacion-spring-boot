@@ -3,8 +3,10 @@ package com.jonatnie.facturacionapp.model.service;
 import java.util.List;
 
 import com.jonatnie.facturacionapp.model.dao.IClientDao;
+import com.jonatnie.facturacionapp.model.dao.IInvoiceDao;
 import com.jonatnie.facturacionapp.model.dao.IProductDao;
 import com.jonatnie.facturacionapp.model.entity.Client;
+import com.jonatnie.facturacionapp.model.entity.Invoice;
 import com.jonatnie.facturacionapp.model.entity.Product;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ClientServiceImpl implements IClientService {
 
     @Autowired
     private IClientDao clientDao;
+
+    @Autowired
+    private IInvoiceDao invoiceDao;
 
     @Autowired
     private IProductDao productDao;
@@ -50,9 +55,16 @@ public class ClientServiceImpl implements IClientService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Product> findByName(String term) {
         /* return productDao.findByName(term); */
         return productDao.findByNameLikeIgnoreCase("%" + term + "%");
+    }
+
+    @Override
+    @Transactional
+    public void saveInvoice(Invoice invoice) {
+        invoiceDao.save(invoice);
     }
 
     

@@ -3,6 +3,7 @@ package com.jonatnie.facturacionapp.model.service;
 import java.util.List;
 
 import com.jonatnie.facturacionapp.model.entity.Client;
+import com.jonatnie.facturacionapp.model.entity.Invoice;
 import com.jonatnie.facturacionapp.model.entity.Product;
 
 /**
@@ -18,5 +19,7 @@ public interface IClientService {
 
     public void delete(Long id);
 
-    public List<Product> findByName(String term); 
+    public List<Product> findByName(String term);
+    
+    public void saveInvoice(Invoice invoice);
 }
