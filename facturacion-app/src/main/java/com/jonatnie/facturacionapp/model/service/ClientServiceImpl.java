@@ -79,5 +79,11 @@ public class ClientServiceImpl implements IClientService {
         return invoiceDao.findOne(id);
     }
 
+    @Override
+    @Transactional
+    public void deleteInvoice(Long id) {
+        invoiceDao.delete(id);
+    }
+
     
 }

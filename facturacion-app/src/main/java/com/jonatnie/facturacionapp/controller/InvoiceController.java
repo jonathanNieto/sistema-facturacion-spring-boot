@@ -108,6 +108,20 @@ public class InvoiceController {
 
         return "redirect:/detail/" + invoice.getClient().getId();
     }
+
+    @GetMapping(value="/delete/{id}")
+    public String delete(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
+        Invoice invoice = clientService.findInvoiceById(id);
+        if (invoice != null) {
+            clientService.deleteInvoice(id);
+            redirectAttributes.addFlashAttribute("success", "Factura eliminada con éxito");
+            return "redirect:/detail/" + invoice.getClient().getId();
+        }
+        redirectAttributes.addFlashAttribute("error", "La factura no fue encontrada, no se puede eliminar");
+
+        return "redirect:/list";
+    }
+    
     
     
 }
