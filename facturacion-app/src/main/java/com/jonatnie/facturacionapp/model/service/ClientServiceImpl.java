@@ -2,7 +2,6 @@ package com.jonatnie.facturacionapp.model.service;
 
 import java.util.List;
 
-import com.jonatnie.facturacionapp.controller.InvoiceController;
 import com.jonatnie.facturacionapp.model.dao.IClientDao;
 import com.jonatnie.facturacionapp.model.dao.IInvoiceDao;
 import com.jonatnie.facturacionapp.model.dao.IProductDao;

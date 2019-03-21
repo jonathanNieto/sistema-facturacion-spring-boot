@@ -38,6 +38,7 @@
                             <th>descripcion</th>
                             <th>fecha</th>
                             <th>total</th>
+                            <th>ver</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +47,7 @@
                             <td th:text="${invoice.description}"></td>
                             <td th:text="${invoice.createAt}"></td>
                             <td th:text="'$'+${invoice.total}"></td>
+                            <td><a th:href="@{/invoice/detail/} + ${invoice.id}" class="btn btn-primary btn-xs" th:text="'Detalle'"></a></td>
                         </tr>
                     </tbody>
                 </table>

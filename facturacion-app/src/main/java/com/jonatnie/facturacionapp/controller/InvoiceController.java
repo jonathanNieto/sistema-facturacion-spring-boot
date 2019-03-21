@@ -48,7 +48,7 @@ public class InvoiceController {
 
         model.addAttribute("invoice", invoice);
         model.addAttribute("title", "Factura: " + invoice.getDescription());
-        return "invoice/ver";
+        return "invoice/detail";
     }
     
 

@@ -55,7 +55,7 @@ public class ItemInvoice implements Serializable {
         this.quantity = quantity;
     }
 
-    protected Double calculateAmount() {
+    public Double calculateAmount() {
         return this.quantity.doubleValue() * product.getCost();
     }
 
