@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns="https://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head">
     <meta charset="UTF-8" />
@@ -11,11 +11,11 @@
     <!-- datatables -->
     <link rel="stylesheet" th:href="@{/css/dataTables.bootstrap4.min.css}" />
     <!--  fontawesone-->
-    <link rel="stylesheet" th:href="@{/css/all.css}"/>
+    <link rel="stylesheet" th:href="@{/css/all.css}" />
     <!-- jquery ui -->
     <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
     <!-- bootstrap date picker -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.min.css}" />
 </head>
 
 <body>
@@ -31,20 +31,57 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/list}">Inicio <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" th:href="@{/}">Inicio <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/list}">Cliente</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav mr-5">
+                    <li class="dropdown show mr-4" sec:authorize="isAuthenticated()">
+                        <a class="btn btn-secondary btn-xs dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span sec:authentication="name"></span>
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <form id="logout-form" th:action="@{/logout}" method="POST">
+                                <button class="dropdown-item" type="submit" id="btn-logout">Salir</button>
+                            </form>
+                        </div>
+                    </li>
+                    <li class="nav-item active" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/login}">Iniciar sesión</a>
+                    </li>
+                </ul>
             </div>
         </nav>
         <div class="container my-2">
-            <div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
-            <div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
-            <div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
-            <div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
-        </div>
+            <div class="alert alert-success alert-close-auto" th:if="${success != null}">
+                <span th:text="${success}"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="alert alert-danger alert-close-auto" th:if="${error != null}">
+                <span th:text="${error}"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="alert alert-warning alert-close-auto" th:if="${warning != null}">
+                <span th:text="${warning}"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="alert alert-info alert-close-auto" th:if="${info != null}">
+                <span th:text="${info}"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>        
     </header>
 
     <footer th:fragment="footer">
@@ -53,13 +90,38 @@
             Este proyecto fue desarrollado en Visual Studio Code + Spring Plugins + Java Plugins por Jonathan Nieto,
             &copy; 2019
         </p>
+        <div class="container">
+            <div class="card">
+                <div class="card-header h4">This section is only for developing</div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item" sec:authorize="isAuthenticated()">
+                                This content is only shown to authenticated users.
+                                Logged user: <span sec:authentication="name"></span>
+                                Roles: <span sec:authentication="principal.authorities"></span>
+                        </li>
+                        <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                                This content is only shown to administrators.
+                                Logged user: <span sec:authentication="name"></span>
+                                Roles: <span sec:authentication="principal.authorities"></span>
+                        </li>
+                        <li class="list-group-item" sec:authorize="hasRole('ROLE_USER')">
+                                This content is only shown to users.
+                                Logged user: <span sec:authentication="name"></span>
+                                Roles: <span sec:authentication="principal.authorities"></span>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+        </div>
+
         <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
         <script th:src="@{/js/jquery-ui.min.js}"></script>
         <script th:src="@{/js/popper.min.js}"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>
         <script th:src="@{/js/jquery.dataTables.min.js}"></script>
         <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
-        <script th:src="@{/js/list.js}"></script>
+        <script th:src="@{/js/main.js}"></script>
         <!-- bootstrap date picker -->
         <script th:src="@{/js/bootstrap-datepicker.min.js}"></script>
         <script th:src="@{/js/bootstrap-datepicker.es.min.js}"></script>
