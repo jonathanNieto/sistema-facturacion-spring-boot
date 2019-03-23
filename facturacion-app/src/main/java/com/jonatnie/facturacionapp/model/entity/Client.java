@@ -49,7 +49,7 @@ public class Client implements Serializable {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createAt;
-    private String photo;
+    private String photo = "";
 
     @OneToMany(mappedBy = "client",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Invoice> invoiceList;

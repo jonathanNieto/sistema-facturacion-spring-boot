@@ -109,6 +109,7 @@ public class ClientController {
             @RequestParam("file") MultipartFile photo, RedirectAttributes redirectAttributes,
             SessionStatus sessionStatus) {
         if (bindingResult.hasErrors()) {
+            System.out.println(client.getCreateAt());
             model.addAttribute("title", "Formulario Cliente");
             return "form";
         }

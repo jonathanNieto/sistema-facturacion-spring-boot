@@ -40,7 +40,7 @@ public class InvoiceController {
     @GetMapping(value="/detail/{id}")
     public String detail(@PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) {
 
-        Invoice invoice = clientService.findInvoiceById(id);
+        Invoice invoice = clientService.fetchByIdWithClientWithItemInvoiceWithProduct(id);
         if (invoice == null) {
             redirectAttributes.addFlashAttribute("error", "Factura no encontrada");
             return "redirect:/list";

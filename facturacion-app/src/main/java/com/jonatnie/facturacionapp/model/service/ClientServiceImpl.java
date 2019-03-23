@@ -85,5 +85,10 @@ public class ClientServiceImpl implements IClientService {
         invoiceDao.delete(id);
     }
 
+    @Override
+    public Invoice fetchByIdWithClientWithItemInvoiceWithProduct(Long id) {
+        return invoiceDao.fetchByIdWithClientWithItemInvoiceWithProduct(id);
+    }
+
     
 }
