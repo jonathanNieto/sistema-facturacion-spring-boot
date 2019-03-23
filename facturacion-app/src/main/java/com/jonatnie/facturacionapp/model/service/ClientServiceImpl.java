@@ -28,6 +28,7 @@ public class ClientServiceImpl implements IClientService {
     @Autowired
     private IProductDao productDao;
 
+    /* client methods */
     @Override
     @Transactional(readOnly = true)
     public List<Client> findAll() {
@@ -43,6 +44,12 @@ public class ClientServiceImpl implements IClientService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Client fetchByIdWithInvoices(Long id) {
+        return clientDao.fetchByIdWithInvoices(id);
+    }
+
+    @Override
     @Transactional
     public void save(Client client) {
         clientDao.save(client);
@@ -54,31 +61,19 @@ public class ClientServiceImpl implements IClientService {
         clientDao.delete(id);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Product> findByName(String term) {
-        /* return productDao.findByName(term); */
-        return productDao.findByNameLikeIgnoreCase("%" + term + "%");
-    }
-
+    /* Invoice  methods*/
     @Override
     @Transactional
     public void saveInvoice(Invoice invoice) {
         invoiceDao.save(invoice);
     }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Product findProductById(Long id) {
-        return productDao.findOne(id);
-    }
-
+    
     @Override
     @Transactional(readOnly = true)
     public Invoice findInvoiceById(Long id) {
         return invoiceDao.findOne(id);
     }
-
+    
     @Override
     @Transactional
     public void deleteInvoice(Long id) {
@@ -86,9 +81,23 @@ public class ClientServiceImpl implements IClientService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Invoice fetchByIdWithClientWithItemInvoiceWithProduct(Long id) {
         return invoiceDao.fetchByIdWithClientWithItemInvoiceWithProduct(id);
     }
 
+    /* product methods */
+    @Override
+    @Transactional(readOnly = true)
+    public List<Product> findByName(String term) {
+        /* return productDao.findByName(term); */
+        return productDao.findByNameLikeIgnoreCase("%" + term + "%");
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Product findProductById(Long id) {
+        return productDao.findOne(id);
+    }
     
 }

@@ -56,7 +56,7 @@ public class ClientController {
     public String detail(@PathVariable(value = "id") Long id, Map<String, Object> model,
             RedirectAttributes redirectAttributes) {
 
-        Client client = clientService.findOne(id);
+        Client client = clientService.fetchByIdWithInvoices(id);
         if (client == null) {
             redirectAttributes.addFlashAttribute("error", "Cliente no encontrado");
             return "redirect:/list";
