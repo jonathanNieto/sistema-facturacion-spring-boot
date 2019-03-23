@@ -31,6 +31,8 @@ public class UploadFileServiceImpl implements IUploadFileService {
         Path photoPath = this.getPath(filename);
         Resource resource = null;
         resource = new UrlResource(photoPath.toUri());
+        /* This is only for developing remove before deploy */
+        log.info("resource: " + resource);
         if (!resource.exists() || !resource.isReadable()) {
             throw new RuntimeException("Error: no se puede cargar la image => " + photoPath.toString());
         }
