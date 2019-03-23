@@ -67,7 +67,7 @@ public class ClientController {
         return "detail";
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = {"/list", "/"}, method = RequestMethod.GET)
     public String list(Model model) {
         List<Client> clientList = clientService.findAll();
         model.addAttribute("title", "Listado de clientes");
