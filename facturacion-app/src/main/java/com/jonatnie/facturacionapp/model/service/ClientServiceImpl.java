@@ -39,7 +39,7 @@ public class ClientServiceImpl implements IClientService {
     @Override
     @Transactional(readOnly = true)
     public Client findOne(Long id) {
-        Client client = clientDao.findOne(id);
+        Client client = clientDao.findById(id).orElse(null);
         return client;
     }
 
@@ -58,7 +58,7 @@ public class ClientServiceImpl implements IClientService {
     @Override
     @Transactional
     public void delete(Long id) {
-        clientDao.delete(id);
+        clientDao.deleteById(id);
     }
 
     /* Invoice  methods*/
@@ -71,13 +71,13 @@ public class ClientServiceImpl implements IClientService {
     @Override
     @Transactional(readOnly = true)
     public Invoice findInvoiceById(Long id) {
-        return invoiceDao.findOne(id);
+        return invoiceDao.findById(id).orElse(null);
     }
     
     @Override
     @Transactional
     public void deleteInvoice(Long id) {
-        invoiceDao.delete(id);
+        invoiceDao.deleteById(id);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ClientServiceImpl implements IClientService {
     @Override
     @Transactional(readOnly = true)
     public Product findProductById(Long id) {
-        return productDao.findOne(id);
+        return productDao.findById(id).orElse(null);
     }
     
 }
