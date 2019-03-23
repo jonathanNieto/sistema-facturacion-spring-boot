@@ -144,7 +144,9 @@ public class ClientController {
             redirectAttributes.addFlashAttribute("success", "Cliente eliminado con éxito");
 
             if (uploadFileService.delete(client.getPhoto())) {
-                redirectAttributes.addFlashAttribute("info", "Foto " + client.getPhoto() + " de " + client.getName() + " eliminada con éxito");
+                if (client.getPhoto().length() > 0) {
+                    redirectAttributes.addFlashAttribute("info", "Foto " + client.getPhoto() + " de " + client.getName() + " eliminada con éxito");
+                }
             }
         }
         return "redirect:/list";

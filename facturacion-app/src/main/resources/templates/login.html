@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head">
+</head>
+
+<body>
+    <header th:replace="layout/layout :: header"></header>
+    <div class="row justify-content-center align-items-center minh-100">
+        <div class="card border-primary p-4">
+            <div class="car-header h1" th:text="${title}"></div>
+            <div class="car-body">
+                <form th:action="@{/login}" autocomplete="off" method="POST">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Usuario" name="username" id="username"
+                            autofocus required aria-label="Username" aria-describedby="basic-addon1" />
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
+                        </div>
+                        <input type="password" name="password" id="password" required class="form-control"
+                            placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>
