@@ -6,12 +6,14 @@ $(document).ready(function () {
         $("#exampleModal #delRef").attr("href", href);
         $("#exampleModal").modal();
     })
-
+    
     /* datatables */
     $('.all-data-tables').DataTable({
         "columnDefs": [{
-            "targets": [5, 6, 7], // column index (start from 0)
-            "orderable": false, // set orderable false for selected columns
+            /* "targets": [5, 6, 7], // column index (start from 0)
+            "orderable": false, // set orderable false for selected columns */
+            
+
         }],
         "pagingType": "full_numbers",
         "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "todos los"]],
@@ -48,7 +50,7 @@ $(document).ready(function () {
         $("#logout-form").submit();
     });
 
-    /* for alert */
+    /* for hiding alert */
     setTimeout(function () {
         $(".alert-close-auto").fadeTo("slow", 0)
                .slideUp("slow");

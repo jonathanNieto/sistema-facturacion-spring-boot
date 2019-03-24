@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="layout/layout :: head">
 </head>
@@ -13,7 +13,7 @@
             <div class="card-body">
                 <div class="row">
                     <h4 class="card-title">
-                        <a class="btn btn-success" th:href="@{/invoice/form/} + ${client.id}">
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success" th:href="@{/invoice/form/} + ${client.id}">
                             <i class="fas fa-folder-plus">&nbsp; Factura</i>
                         </a>
                     </h4>
@@ -38,8 +38,8 @@
                             <th>Descripcion</th>
                             <th>Fecha</th>
                             <th>Total</th>
-                            <th>Detalle</th>
-                            <th>Eliminar</th>
+                            <th sec:authorize="hasRole('ROLE_ADMIN')" >Detalle</th>
+                            <th sec:authorize="hasRole('ROLE_ADMIN')" >Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,8 +48,8 @@
                             <td th:text="${invoice.description}"></td>
                             <td th:text="${invoice.createAt}"></td>
                             <td th:text="'$'+${invoice.total}"></td>
-                            <td><a th:href="@{/invoice/detail/} + ${invoice.id}" class="btn btn-primary btn-xs"><i class="fas fa-file-invoice-dollar"></i></a></td>
-                            <td><a th:href="@{/invoice/delete/} + ${invoice.id}" class="btn btn-danger btn-xs delBtn"><i class="fas fa-trash-alt"></i></a></td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="@{/invoice/detail/} + ${invoice.id}" class="btn btn-primary btn-xs"><i class="fas fa-file-invoice-dollar"></i></a></td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="@{/invoice/delete/} + ${invoice.id}" class="btn btn-danger btn-xs delBtn"><i class="fas fa-trash-alt"></i></a></td>
                         </tr>
                     </tbody>
                 </table>
