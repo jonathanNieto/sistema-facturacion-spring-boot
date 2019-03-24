@@ -1,4 +1,4 @@
-INSERT INTO clients (id, name, lastname, email, create_at, photo) VALUES(1001, 'Andres', 'Guzman', 'profesor@bolsadeideas.com', '2017-08-28', '');
+INSERT INTO clients (id, name, lastname, email, create_at, photo) VALUES(1, 'Andres', 'Guzman', 'profesor@bolsadeideas.com', '2017-08-28', '');
 INSERT INTO clients (id, name, lastname, email, create_at, photo) VALUES(1002, 'John', 'Doe', 'john.doe@gmail.com', '2017-08-28', '');
 INSERT INTO clients (id, name, lastname, email, create_at, photo) VALUES(1003, 'Ashlynn', 'Sanford', 'Ike.Ward49@yahoo.com', '2017-08-28', '');
 INSERT INTO clients (id, name, lastname, email, create_at, photo) VALUES(1004, 'Nico', 'Gorczany','Shanny39@yahoo.com', '2017-08-28', '');
@@ -12,7 +12,7 @@ INSERT INTO clients (id, name, lastname, email, create_at, photo) VALUES(1011, '
 INSERT INTO clients (id, name, lastname, email, create_at, photo) VALUES(1012, 'Tyson', 'Candido', 'Hal.Weimann@gmail.com', '2017-08-28', '');
 INSERT INTO clients (id, name, lastname, email, create_at, photo) VALUES(1013, 'Emile', 'Kris', 'Modesta.Christiansen84@hotmail.com', '2017-08-28', '');
 INSERT INTO clients (id, name, lastname, email, create_at, photo) VALUES(1014, 'Berry', 'Zemlak', 'Bailee.Shields@hotmail.com', '2017-08-28', '');
-insert into clients (id, name, lastname, email, create_at, photo) values (1, 'Michele', 'Bernaldez', 'mbernaldez0@usgs.gov', '2017-05-03', '');
+insert into clients (id, name, lastname, email, create_at, photo) values (1001, 'Michele', 'Bernaldez', 'mbernaldez0@usgs.gov', '2017-05-03', '');
 insert into clients (id, name, lastname, email, create_at, photo) values (2, 'Cathryn', 'Elleton', 'celleton1@bing.com', '2018-08-21', '');
 insert into clients (id, name, lastname, email, create_at, photo) values (3, 'Ase', 'Brigginshaw', 'abrigginshaw2@bing.com', '2018-07-21', '');
 insert into clients (id, name, lastname, email, create_at, photo) values (4, 'Madelaine', 'Trevers', 'mtrevers3@discovery.com', '2017-09-30', '');

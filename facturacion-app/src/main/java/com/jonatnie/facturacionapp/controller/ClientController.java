@@ -1,19 +1,29 @@
 package com.jonatnie.facturacionapp.controller;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.jonatnie.facturacionapp.model.entity.Client;
 import com.jonatnie.facturacionapp.model.service.IClientService;
 import com.jonatnie.facturacionapp.model.service.IUploadFileService;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,6 +48,8 @@ public class ClientController {
     private IClientService clientService;
     @Autowired
     private IUploadFileService uploadFileService;
+
+	protected final Log logger = LogFactory.getLog(this.getClass());
 
     @GetMapping(value = "/upload/{filename:.+}")
     public ResponseEntity<Resource> viewPhoto(@PathVariable String filename) {
@@ -68,7 +80,48 @@ public class ClientController {
     }
 
     @RequestMapping(value = {"/list", "/"}, method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, Authentication authentication, HttpServletRequest request) {
+
+        /**
+         * ways to get authenticated user in the controller.
+         * use Authentication from org.springframework.security.core.Authentication;.
+         * 
+         */
+        if (authentication != null) {
+            logger.info("Usuario autenticado: " + authentication.getName());
+        }
+        /* static way using SecurityContextHolder */
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            logger.info("using SecurityContextHolder => Usuario autenticado: " + auth.getName());            
+        }
+
+        /**
+         * ways to get roles
+         */
+        if (this.hasRole("ROLE_ADMIN")) {
+            logger.info(auth.getName() + " tienes role de admin");
+        }else{
+            logger.info(auth.getName() + " NO tienes role de admin");
+        }
+
+        /* validate authorization */
+        SecurityContextHolderAwareRequestWrapper securityContext = new SecurityContextHolderAwareRequestWrapper(request, "");
+        if (securityContext.isUserInRole("ROLE_ADMIN")) {
+            logger.info("USING SecurityContextHolderAwareRequestWrapper " + auth.getName() + " tienes role de admin");            
+        }else{
+            logger.info("USING SecurityContextHolderAwareRequestWrapper " + auth.getName() + " NO tienes role de admin");
+        }
+
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            logger.info("USING HttpServletRequest: " + auth.getName() + " tienes role de admin");
+        } else {
+            logger.info(
+                    "USING HttpServletRequest: " + auth.getName() + " NO tienes role de admin");
+        }
+
+
+        
         List<Client> clientList = clientService.findAll();
         model.addAttribute("title", "Listado de clientes");
         model.addAttribute("clients", clientList);
@@ -150,6 +203,28 @@ public class ClientController {
             }
         }
         return "redirect:/list";
+    }
+
+    private boolean hasRole(String role){
+        SecurityContext context = SecurityContextHolder.getContext();
+
+        if (context == null) {
+            return false;
+        }
+
+        Authentication auth = context.getAuthentication();
+        if (auth == null) {
+            return false;
+        }
+
+        Collection<? extends  GrantedAuthority> authorities = auth.getAuthorities();
+        return authorities.contains(new SimpleGrantedAuthority(role));
+        /* for (GrantedAuthority authority : authorities) {
+            if (role.equals(authority.getAuthority())) {
+                return true;
+            }
+        } 
+        return false;*/
     }
 
 }
