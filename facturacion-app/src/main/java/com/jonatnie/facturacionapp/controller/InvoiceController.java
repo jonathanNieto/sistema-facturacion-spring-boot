@@ -12,6 +12,7 @@ import com.jonatnie.facturacionapp.model.entity.Product;
 import com.jonatnie.facturacionapp.model.service.IClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 /**
  * InvoiceController
  */
+
+@Secured("ROLE_ADMIN") /* this is here because all methods only can executed by an admin user */
 @Controller
 @RequestMapping("/invoice")
 @SessionAttributes("invoice")

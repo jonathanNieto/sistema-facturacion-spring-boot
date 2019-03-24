@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -51,6 +53,8 @@ public class ClientController {
 
 	protected final Log logger = LogFactory.getLog(this.getClass());
 
+    /* @Secured("ROLE_USER") */
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(value = "/upload/{filename:.+}")
     public ResponseEntity<Resource> viewPhoto(@PathVariable String filename) {
         Resource resource = null;
@@ -64,6 +68,7 @@ public class ClientController {
                 .body(resource);
     }
 
+    @Secured("ROLE_USER")
     @GetMapping(value = "/detail/{id}")
     public String detail(@PathVariable(value = "id") Long id, Map<String, Object> model,
             RedirectAttributes redirectAttributes) {
@@ -128,6 +133,7 @@ public class ClientController {
         return "list";
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String create(Map<String, Object> model) {
         Client client = new Client();
@@ -136,6 +142,8 @@ public class ClientController {
         return "form";
     }
 
+    /* @Secured("ROLE_ADMIN") */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/form/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable(value = "id") Long id, Map<String, Object> model,
             RedirectAttributes redirectAttributes) {
@@ -157,6 +165,7 @@ public class ClientController {
         return "form";
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/form", method = RequestMethod.POST)
     public String save(@Valid Client client, BindingResult bindingResult, Model model,
             @RequestParam("file") MultipartFile photo, RedirectAttributes redirectAttributes,
@@ -189,6 +198,7 @@ public class ClientController {
         return "redirect:/list";
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
         if (id > 0) {
