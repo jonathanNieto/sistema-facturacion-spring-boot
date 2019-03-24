@@ -1,5 +1,7 @@
 package com.jonatnie.facturacionapp;
 
+import com.jonatnie.facturacionapp.auth.handler.LoginSuccessHandler;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,6 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private LoginSuccessHandler successHandler;
+    
     @Autowired
     public void configurerGlobal(AuthenticationManagerBuilder athManagerBuilder) throws Exception {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -36,8 +41,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/invoice/**").hasAnyRole("ADMIN")
         .anyRequest().authenticated()
         .and()
-        .formLogin().loginPage("/login")
-        .permitAll()
+            .formLogin()
+                .successHandler(successHandler)
+                .loginPage("/login")
+            .permitAll()
         .and()
         .logout().permitAll()
         .and()
