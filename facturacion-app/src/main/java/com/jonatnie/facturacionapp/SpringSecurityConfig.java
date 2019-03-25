@@ -1,9 +1,8 @@
 package com.jonatnie.facturacionapp;
 
 
-import javax.sql.DataSource;
-
 import com.jonatnie.facturacionapp.auth.handler.LoginSuccessHandler;
+import com.jonatnie.facturacionapp.model.service.JpaUserDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * SpringSecurityConfig
@@ -28,18 +23,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private LoginSuccessHandler successHandler;
 
     @Autowired
-    private DataSource dataSource;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private JpaUserDetailsService userDetailsService;
     
     @Autowired
     public void configurerGlobal(AuthenticationManagerBuilder athManagerBuilder) throws Exception {
-       athManagerBuilder.jdbcAuthentication()
-       .dataSource(dataSource)
-       .passwordEncoder(passwordEncoder)
-       .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?")
-       .authoritiesByUsernameQuery("SELECT u.username, a.authority FROM authorities a INNER JOIN users u ON (a.user_id = u.id) WHERE u.username = ?");
+       athManagerBuilder.userDetailsService(userDetailsService)
+       .passwordEncoder(passwordEncoder);
+
     }
 
     @Override

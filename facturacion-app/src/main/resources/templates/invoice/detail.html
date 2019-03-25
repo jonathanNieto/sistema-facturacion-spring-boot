@@ -40,15 +40,15 @@
                     <tbody>
                         <tr th:each="item : ${invoice.itemList}">
                             <td th:text="${item.product.name}"></td>
-                            <td th:text="${item.product.cost}"></td>
+                            <td th:text="'$ ' + ${item.product.cost}"></td>
                             <td th:text="${item.quantity}"></td>
-                            <td th:text="${item.calculateAmount()}"></td>
+                            <td th:text="'$ ' + ${#numbers.formatDecimal(item.calculateAmount(),2,2)}"></td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-end">
                     <h2><span class="badge badge-secondary">Gran Total:</span></h2>
-                    <h2><span th:text="'$ ' + ${invoice.total}" class="badge badge-success"></span></h2>
+                    <h2><span th:text="'$ ' + ${#numbers.formatDecimal(invoice.total,2,2)}" class="badge badge-success"></span></h2>
                 </div>
 
                 <div class="card border-info">

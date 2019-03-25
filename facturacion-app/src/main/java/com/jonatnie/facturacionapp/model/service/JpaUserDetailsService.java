@@ -38,14 +38,15 @@ public class JpaUserDetailsService implements UserDetailsService {
 
         if (user == null) {
             logger.error("Error login: no existe usuario '" + username + "'");
-            throw new UsernameNotFoundException("Username: " + username + "no exitse en el sistema");
+            throw new UsernameNotFoundException("Username: '" + username + "' no exitse en el sistema");
         }
         for (Role role : user.getRoleList()) {
+            logger.info("Role: " + role.getAuthority());
             authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
         }
         if (authorities.isEmpty()) {
             logger.error("Error login: usuario '" + username + "' no tiene roles asignados");
-            throw new UsernameNotFoundException("Username: " + username + " no tiene roles asignados");
+            throw new UsernameNotFoundException("Username: '" + username + "' no tiene roles asignados");
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, authorities);
     }

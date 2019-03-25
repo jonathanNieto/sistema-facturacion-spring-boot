@@ -12,7 +12,7 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface IProductDao extends CrudRepository<Product, Long>{
 
-    @Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
+    @Query("SELECT p FROM Product p WHERE p.name LIKE ?1%")
     public List<Product> findByName(String name);
 
     public List<Product> findByNameLikeIgnoreCase(String term);

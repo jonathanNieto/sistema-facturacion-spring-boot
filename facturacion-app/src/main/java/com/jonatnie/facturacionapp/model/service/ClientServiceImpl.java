@@ -91,7 +91,7 @@ public class ClientServiceImpl implements IClientService {
     @Transactional(readOnly = true)
     public List<Product> findByName(String term) {
         /* return productDao.findByName(term); */
-        return productDao.findByNameLikeIgnoreCase("%" + term + "%");
+        return productDao.findByNameLikeIgnoreCase( term + "%");
     }
     
     @Override
