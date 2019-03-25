@@ -11,6 +11,9 @@
             <div class="card-header h1" th:text="${title}"></div>
             <div class="card-body">
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary mb-2" th:href="@{/form}"><i class="fas fa-user-plus"></i></a>
+                <div id="loadingSpinner" class="container text-center my-4 text-primary">
+                    <i class="fas fa-spinner fa-pulse fa-5x"></i>
+                </div>
                 <table class="table table-striped table-hover all-data-tables my-2">
                     <thead>
                         <tr>
