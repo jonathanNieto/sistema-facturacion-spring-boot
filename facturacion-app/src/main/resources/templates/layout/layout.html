@@ -35,7 +35,7 @@
                     </li>                    
                 </ul>
                 <ul class="navbar-nav mr-5">
-                    <li class="dropdown show mr-4" sec:authorize="isAuthenticated()">
+                    <li class="dropdown dropleft show mr-4" sec:authorize="isAuthenticated()">
                         <a class="btn btn-secondary btn-xs dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span sec:authentication="name"></span>
@@ -51,10 +51,13 @@
                         <a class="nav-link" th:href="@{/login}" th:text="#{txt.navbar.login}"></a>
                     </li>
                 </ul>
-                <ul class="navbar-nav mx-5">
-                    <li class="nav-item mx-1"><a class="btn btn-secondary btn-xs" th:href="@{/locale(lang=es_ES)}" th:text="#{txt.navbar.language.es}"></a></li>
-                    <li class="nav-item mx-1"><a class="btn btn-outline-secondary btn-xs" th:href="@{/locale(lang=en_US)}" th:text="#{txt.navbar.language.es}"></a></li>
-                </ul>
+                <div class="dropdown dropleft float-right">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" th:text="#{txt.navbar.language}"></button>>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/locale(lang=es_ES)}" th:text="#{txt.navbar.language.es}"></a>
+                        <a class="dropdown-item" th:href="@{/locale(lang=en_US)}" th:text="#{txt.navbar.language.en}"></a>
+                    </div>
+                </div>
             </div>
         </nav>
         <div class="container my-2">
