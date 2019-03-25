@@ -22,7 +22,7 @@
     <!-- navBar -->
     <header th:fragment="header">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" th:href="@{/list}">Spring Boot</a>
+            <a class="navbar-brand" th:href="@{/}" th:text="#{txt.navbar.brand}"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -31,11 +31,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/}">Inicio <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/list}">Cliente</a>
-                    </li>
+                        <a class="nav-link" th:href="@{/}" th:text="#{txt.navbar.home}"><span class="sr-only">(current)</span></a>
+                    </li>                    
                 </ul>
                 <ul class="navbar-nav mr-5">
                     <li class="dropdown show mr-4" sec:authorize="isAuthenticated()">
@@ -46,13 +43,17 @@
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <form id="logout-form" th:action="@{/logout}" method="POST">
-                                <button class="dropdown-item" type="submit" id="btn-logout">Salir</button>
+                                <button class="dropdown-item" type="submit" id="btn-logout" th:text="#{txt.navbar.logout}"></button>
                             </form>
                         </div>
                     </li>
                     <li class="nav-item active" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" th:href="@{/login}">Iniciar sesión</a>
+                        <a class="nav-link" th:href="@{/login}" th:text="#{txt.navbar.login}"></a>
                     </li>
+                </ul>
+                <ul class="navbar-nav mx-5">
+                    <li class="nav-item mx-1"><a class="btn btn-secondary btn-xs" th:href="@{/locale(lang=es_ES)}" th:text="#{txt.navbar.language.es}"></a></li>
+                    <li class="nav-item mx-1"><a class="btn btn-outline-secondary btn-xs" th:href="@{/locale(lang=en_US)}" th:text="#{txt.navbar.language.es}"></a></li>
                 </ul>
             </div>
         </nav>
@@ -87,8 +88,7 @@
     <footer th:fragment="footer">
         <p class="">
             <img th:src="@{/img/spring-boot-logo.png}" width="50px" alt="spring boot" class="" />
-            Este proyecto fue desarrollado en Visual Studio Code + Spring Plugins + Java Plugins por Jonathan Nieto,
-            &copy; 2019
+            <span th:text="#{txt.footer.legend}"></span>
         </p>
         <div class="container my-4">
             <div class="card">

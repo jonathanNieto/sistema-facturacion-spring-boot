@@ -47,7 +47,7 @@
                             <td th:text="${invoice.id}"></td>
                             <td th:text="${invoice.description}"></td>
                             <td th:text="${invoice.createAt}"></td>
-                            <td th:text="'$'+${invoice.total}"></td>
+                            <td th:text="'$ ' + ${#numbers.formatDecimal(invoice.total,2,2)}"></td>
                             <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="@{/invoice/detail/} + ${invoice.id}" class="btn btn-primary btn-xs"><i class="fas fa-file-invoice-dollar"></i></a></td>
                             <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="@{/invoice/delete/} + ${invoice.id}" class="btn btn-danger btn-xs delBtn"><i class="fas fa-trash-alt"></i></a></td>
                         </tr>

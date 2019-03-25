@@ -18,13 +18,13 @@
                     <thead>
                         <tr>
                             <th sec:authorize="hasRole('ROLE_USER')">id</th>
-                            <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Email</th>
-                            <th>Fecha</th>
-                            <th sec:authorize="hasRole('ROLE_ADMIN')">Factura</th>
-                            <th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
-                            <th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+                            <th th:text="#{txt.client.list.name}"></th>
+                            <th th:text="#{txt.client.list.lastname}"></th>
+                            <th th:text="#{txt.client.list.email}"></th>
+                            <th th:text="#{txt.client.list.createAt}"></th>
+                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{txt.client.list.invoice}"></th>
+                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{txt.client.list.edit}"></th>
+                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{txt.client.list.delete}"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,17 +50,17 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Eliminar Cliente</h5>
+                        <h5 class="modal-title" id="exampleModalLabel" th:text="#{txt.client.list.modal.header}"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p class="alert alert-danger">¿Está seguro de querer eliminar el cliente?</p>
+                        <p class="alert alert-danger" th:text="#{txt.client.list.modal.question}"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <a href="" class="btn btn-danger" id="delRef">Eliminar</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{txt.client.list.cancel}"></button>
+                        <a href="" class="btn btn-danger" id="delRef" th:text="#{txt.client.list.delete}"></a>
                     </div>
                 </div>
             </div>
