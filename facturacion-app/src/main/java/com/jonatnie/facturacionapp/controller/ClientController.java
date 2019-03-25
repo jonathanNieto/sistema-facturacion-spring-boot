@@ -228,6 +228,9 @@ public class ClientController {
         }
 
         Collection<? extends  GrantedAuthority> authorities = auth.getAuthorities();
+        for (GrantedAuthority authority : authorities) {
+            logger.info("ROLES: " + authority.getAuthority());
+        }
         return authorities.contains(new SimpleGrantedAuthority(role));
         /* for (GrantedAuthority authority : authorities) {
             if (role.equals(authority.getAuthority())) {
