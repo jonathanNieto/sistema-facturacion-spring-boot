@@ -13,8 +13,11 @@
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary mb-2" th:href="@{/form}">
                     <i class="fas fa-user-plus"></i>
                 </a>
-                <a target="_blank" class="btn btn-success float-right" th:href="@{/list(format=csv)}">
+                <a target="_blank" class="btn btn-success float-right mx-2" th:href="@{/list(format=csv)}">
                     <i class="fas fa-file-csv"></i>
+                </a>
+                <a target="_blank" class="btn btn-primary float-right mx-2" th:href="@{/list(format=xml)}">
+                    <i class="fas fa-code"></i>
                 </a>
                 <div id="loadingSpinner" class="container text-center my-4 text-primary">
                     <i class="fas fa-spinner fa-pulse fa-5x"></i>

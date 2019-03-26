@@ -21,6 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import javax.validation.constraints.NotEmpty;
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -117,6 +119,7 @@ public class Invoice implements Serializable{
     /**
      * @return the client
      */
+    @XmlTransient
     public Client getClient() {
         return client;
     }

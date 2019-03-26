@@ -28,12 +28,4 @@ public class ClientList {
     public List<Client> getClientList() {
         return clientList;
     }
-
-    /**
-     * @param clientList the clientList to set
-     */
-    public void setClientList(List<Client> clientList) {
-        this.clientList = clientList;
-    }
-
 }

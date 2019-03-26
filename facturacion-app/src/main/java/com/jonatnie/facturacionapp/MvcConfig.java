@@ -2,7 +2,6 @@ package com.jonatnie.facturacionapp;
 
 import java.util.Locale;
 
-import com.jonatnie.facturacionapp.view.xml.ClientList;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,7 +51,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Bean
     public Jaxb2Marshaller jaxb2Marshaller(){
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setClassesToBeBound(new Class[]{ClientList.class});
+        marshaller.setClassesToBeBound(new Class[]{ com.jonatnie.facturacionapp.view.xml.ClientList.class});
         return marshaller;
     } 
     
