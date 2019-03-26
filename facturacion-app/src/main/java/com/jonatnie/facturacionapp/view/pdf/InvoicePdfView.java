@@ -6,7 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jonatnie.facturacionapp.model.entity.Invoice;
+import com.jonatnie.facturacionapp.model.entity.ItemInvoice;
 import com.lowagie.text.Document;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
@@ -40,6 +43,28 @@ public class InvoicePdfView extends AbstractPdfView {
 
         document.add(pdfPTable);
         document.add(pdfPTable2);
+
+        PdfPTable pdfPTable3 = new PdfPTable(4);
+        pdfPTable3.addCell("Producto");
+        pdfPTable3.addCell("Precio");
+        pdfPTable3.addCell("Cantidad");
+        pdfPTable3.addCell("Total");
+
+        for (ItemInvoice item : invoice.getItemList()) {
+            pdfPTable3.addCell(item.getProduct().getName());
+            pdfPTable3.addCell("$ " + item.getProduct().getCost().toString());
+            pdfPTable3.addCell(item.getQuantity().toString());
+            pdfPTable3.addCell("$ " + item.calculateAmount().toString());
+        }
+
+        PdfPCell cell = new PdfPCell(new Phrase("Total: "));
+        cell.setColspan(3);
+        cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+        pdfPTable3.addCell(cell);
+        pdfPTable3.addCell("$ " + invoice.getTotal().toString());
+
+        document.add(pdfPTable3);
+
     }
 
     
