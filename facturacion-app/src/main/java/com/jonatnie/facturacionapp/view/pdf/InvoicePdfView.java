@@ -1,6 +1,7 @@
 package com.jonatnie.facturacionapp.view.pdf;
 
 import java.awt.Color;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,11 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 
 /**
@@ -23,17 +28,27 @@ import org.springframework.web.servlet.view.document.AbstractPdfView;
 @Component("invoice/detail")
 public class InvoicePdfView extends AbstractPdfView {
 
+    @Autowired
+    private MessageSource messageSource;
+
+    @Autowired
+    private LocaleResolver localeResolver;
+
     @Override
     protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+        Locale locale = localeResolver.resolveLocale(request);
+
         Invoice invoice = (Invoice) model.get("invoice");
+
+        MessageSourceAccessor messages = getMessageSourceAccessor();
         
         
         PdfPTable pdfPTable =  new PdfPTable(1);
         pdfPTable.setSpacingAfter(20);
     
-        PdfPCell cell = new PdfPCell(new Phrase("Datos del cliente"));
+        PdfPCell cell = new PdfPCell(new Phrase(messageSource.getMessage("txt.invoice.detail.view.client.detail", null, locale)));
         cell.setBackgroundColor(new Color(184, 218, 255));
         cell.setPadding(8f);
         pdfPTable.addCell(cell);
@@ -43,24 +58,24 @@ public class InvoicePdfView extends AbstractPdfView {
 
         PdfPTable pdfPTable2 = new PdfPTable(1);
         pdfPTable2.setSpacingAfter(20);
-        cell = new PdfPCell(new Phrase("Datos de la factura"));
+        cell = new PdfPCell(new Phrase(messageSource.getMessage("txt.invoice.detail.view.invoice.data", null, locale)));
         cell.setBackgroundColor(new Color(195, 230, 203));
         cell.setPadding(8f);
         pdfPTable2.addCell(cell);
 
-        pdfPTable2.addCell("Folio: " + invoice.getId());
-        pdfPTable2.addCell("Descripción: " + invoice.getDescription());
-        pdfPTable2.addCell("Fecha: " + invoice.getCreateAt());
+        pdfPTable2.addCell(messages.getMessage("txt.detail.view.folio") + ": " + invoice.getId());
+        pdfPTable2.addCell(messages.getMessage("txt.detail.view.description") +": " + invoice.getDescription());
+        pdfPTable2.addCell(messages.getMessage("txt.detail.view.createAt") +": " + invoice.getCreateAt());
 
         document.add(pdfPTable);
         document.add(pdfPTable2);
 
         PdfPTable pdfPTable3 = new PdfPTable(4);
         pdfPTable3.setWidths(new float []{3.5f, 1, 1, 1});
-        pdfPTable3.addCell("Producto");
-        pdfPTable3.addCell("Precio");
-        pdfPTable3.addCell("Cantidad");
-        pdfPTable3.addCell("Total");
+        pdfPTable3.addCell(messageSource.getMessage("txt.invoice.detail.view.product", null, locale));
+        pdfPTable3.addCell(messageSource.getMessage("txt.invoice.detail.view.price", null, locale));
+        pdfPTable3.addCell(messageSource.getMessage("txt.invoice.detail.view.quantity", null, locale));
+        pdfPTable3.addCell(messageSource.getMessage("txt.invoice.detail.view.total", null, locale));
 
         for (ItemInvoice item : invoice.getItemList()) {
             pdfPTable3.addCell(item.getProduct().getName());
@@ -71,7 +86,7 @@ public class InvoicePdfView extends AbstractPdfView {
             pdfPTable3.addCell("$ " + item.calculateAmount().toString());
         }
 
-        cell = new PdfPCell(new Phrase("Total: "));
+        cell = new PdfPCell(new Phrase(messages.getMessage("txt.invoice.detail.view.price.purchase")));
         cell.setColspan(3);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         pdfPTable3.addCell(cell);
