@@ -1,12 +1,12 @@
 package com.jonatnie.facturacionapp.view.xlsx;
 
-import java.io.FileOutputStream;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jonatnie.facturacionapp.model.entity.Invoice;
+import com.jonatnie.facturacionapp.model.entity.ItemInvoice;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -49,7 +49,23 @@ public class InvoiceXlsxView extends AbstractXlsxView {
         sheet.createRow(6).createCell(0).setCellValue(messages.getMessage("txt.detail.view.description") +": " + invoice.getDescription());
         sheet.createRow(7).createCell(0).setCellValue(messages.getMessage("txt.detail.view.createAt") +": " + invoice.getCreateAt());
 
+        Row header = sheet.createRow(9);
+        header.createCell(0).setCellValue(messages.getMessage("txt.invoice.detail.view.product"));
+        header.createCell(1).setCellValue(messages.getMessage("txt.invoice.detail.view.price"));
+        header.createCell(2).setCellValue(messages.getMessage("txt.invoice.detail.view.quantity"));
+        header.createCell(3).setCellValue(messages.getMessage("txt.invoice.detail.view.total"));
         
+        int rownum = 10;
+        for (ItemInvoice item : invoice.getItemList()) {
+            Row rowItem = sheet.createRow(rownum++);
+            rowItem.createCell(0).setCellValue(item.getProduct().getName());
+            rowItem.createCell(1).setCellValue("$ " + item.getProduct().getCost().toString());
+            rowItem.createCell(2).setCellValue(item.getQuantity().toString());
+            rowItem.createCell(3).setCellValue("$ " + item.calculateAmount().toString());
+        }
+        Row rowTotal = sheet.createRow(rownum);
+        rowTotal.createCell(2).setCellValue(messages.getMessage("txt.invoice.detail.view.price.purchase"));
+        rowTotal.createCell(3).setCellValue("$ " + invoice.getTotal().toString());
     }
 
 }
