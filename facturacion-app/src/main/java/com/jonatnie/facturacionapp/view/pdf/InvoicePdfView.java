@@ -39,10 +39,12 @@ public class InvoicePdfView extends AbstractPdfView {
             HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         Locale locale = localeResolver.resolveLocale(request);
+        MessageSourceAccessor messages = getMessageSourceAccessor();
 
         Invoice invoice = (Invoice) model.get("invoice");
+        String filename = messages.getMessage("txt.client.list.invoice") + "_" + invoice.getDescription() + ".pdf";
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 
-        MessageSourceAccessor messages = getMessageSourceAccessor();
         
         
         PdfPTable pdfPTable =  new PdfPTable(1);
