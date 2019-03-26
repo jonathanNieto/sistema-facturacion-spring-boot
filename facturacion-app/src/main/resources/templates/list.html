@@ -10,7 +10,12 @@
         <div class="card bg-light my-3">
             <div class="card-header h1" th:text="${title}"></div>
             <div class="card-body">
-                <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary mb-2" th:href="@{/form}"><i class="fas fa-user-plus"></i></a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary mb-2" th:href="@{/form}">
+                    <i class="fas fa-user-plus"></i>
+                </a>
+                <a target="_blank" class="btn btn-success float-right" th:href="@{/list(format=csv)}">
+                    <i class="fas fa-file-csv"></i>
+                </a>
                 <div id="loadingSpinner" class="container text-center my-4 text-primary">
                     <i class="fas fa-spinner fa-pulse fa-5x"></i>
                 </div>
