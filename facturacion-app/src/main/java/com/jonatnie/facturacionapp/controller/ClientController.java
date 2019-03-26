@@ -79,7 +79,7 @@ public class ClientController {
 
         Client client = clientService.fetchByIdWithInvoices(id);
         if (client == null) {
-            redirectAttributes.addFlashAttribute("error", messageSource.getMessage("flash.attribute.client.controller.edit.error", null, locale));
+            redirectAttributes.addFlashAttribute("error", messageSource.getMessage("flash.attribute.client.controller.client.not.found", null, locale));
             return "redirect:/list";
         }
 
@@ -157,11 +157,11 @@ public class ClientController {
         if (id > 0) {
             client = clientService.findOne(id);
             if (client == null) {
-                redirectAttributes.addFlashAttribute("error", messageSource.getMessage("model.attribute.client.controller.edit.error", null, locale));
+                redirectAttributes.addFlashAttribute("error", messageSource.getMessage("flash.attribute.client.controller.client.not.found", null, locale));
                 return "redirect:/list";
             }
         } else {
-            redirectAttributes.addFlashAttribute("error", messageSource.getMessage("model.attribute.client.controller.edit.error", null, locale));
+            redirectAttributes.addFlashAttribute("error", messageSource.getMessage("flash.attribute.client.controller.client.not.found", null, locale));
             return "redirect:/list";
         }
         model.put("title", messageSource.getMessage("model.attribute.client.controller.edit.title", null, locale));

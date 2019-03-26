@@ -15,7 +15,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Usuario" name="username" id="username"
+                        <input type="text" class="form-control" th:placeholder="#{txt.login.view.username}" name="username" id="username"
                             autofocus required aria-label="Username" aria-describedby="basic-addon1" />
                     </div>
                     <div class="input-group mb-3">
@@ -23,9 +23,9 @@
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
                         </div>
                         <input type="password" name="password" id="password" required class="form-control"
-                            placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1">
+                            th:placeholder="#{txt.login.view.password}" aria-label="Password" aria-describedby="basic-addon1">
                     </div>
-                    <button type="submit" class="btn btn-block btn-primary">Enviar</button>
+                    <button type="submit" class="btn btn-block btn-primary" th:text="#{txt.login.view.login}"></button>
                 </form>
             </div>
         </div>

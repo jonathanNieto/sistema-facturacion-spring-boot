@@ -7,15 +7,15 @@
 
     <div class="container">
         <div class="card bg-danger py-4">
-            <div class="card-header">Error: Acceso Denegado!</div>
+            <div class="card-header" th:text="#{txt.error.card.header}"></div>
             <div class="card-body">
                 <h5 class="card-title">
-                    Lo sentimos
+                    <span th:text="#{txt.error.card.title.first.part}"></span>
                     <!-- <span th:text="${#httpServletRequest.remoteUser}"></span> -->
                     <span th:text="${#authentication.name}"></span>
-                    , no tiene permisos para acceder a esta página
+                    <span th:text="#{txt.error.card.title.last.part}"></span>
                 </h5>
-                <a class="btn btn-outline-light" th:href="@{/}">Inicio</a>
+                <a class="btn btn-outline-light" th:href="@{/}" th:text="#{txt.navbar.home}"></a>
             </div>
         </div>
     </div>

@@ -12,29 +12,29 @@
             <div class="card-body">
                 <h4 class="card-title">
                     <a class="btn btn-info btn-xs" th:href="@{'/detail/' + ${invoice.client.id}}"><i
-                            class="fas fa-angle-double-left"></i> &nbsp;Volver</a>
+                            class="fas fa-angle-double-left" th:utext="#{txt.invoice.detail.view.back}"></i></a>
                 </h4>
                 <ul class="list-group my-2">
-                    <li class="list-group-item list-group-item-primary" th:text="'Datos del cliente'"></li>
+                    <li class="list-group-item list-group-item-primary" th:text="#{txt.invoice.detail.view.client.detail}"></li>
                     <li class="list-group-item" th:text="${invoice.client.name} + ' ' + ${invoice.client.lastname}">
                     </li>
                     <li class="list-group-item" th:text="${invoice.client.email}"></li>
                 </ul>
 
                 <ul class="list-group">
-                    <li class="list-group-item list-group-item-success" th:text="'Datos de la factura'"></li>
-                    <li class="list-group-item" th:text="'Folio: ' + ${invoice.id}"></li>
-                    <li class="list-group-item" th:text="'Descripción: ' + ${invoice.description}"></li>
-                    <li class="list-group-item" th:text="'Fecha: ' + ${invoice.createAt}"></li>
+                    <li class="list-group-item list-group-item-success" th:text="#{txt.invoice.detail.view.invoice.data}"></li>
+                    <li class="list-group-item" th:utext="#{txt.invoice.detail.view.invoice.folio(${invoice.id})}"></li>
+                    <li class="list-group-item" th:utext="#{txt.invoice.detail.view.invoice.description(${invoice.description})}"></li>
+                    <li class="list-group-item" th:utext="#{txt.invoice.detail.view.invoice.date(${invoice.createAt})}" th:text="'Fecha: ' + ${invoice.createAt}"></li>
                 </ul>
 
                 <table class="table table-hover table-striped mt-5">
                     <thead>
                         <tr>
-                            <th>Producto</th>
-                            <th>Precio</th>
-                            <th>Cantidad</th>
-                            <th>Total</th>
+                            <th th:text="#{txt.invoice.detail.view.product}"></th>
+                            <th th:text="#{txt.invoice.detail.view.price}"></th>
+                            <th th:text="#{txt.invoice.detail.view.quantity}"></th>
+                            <th th:text="#{txt.invoice.detail.view.total}"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,12 +47,12 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-end">
-                    <h2><span class="badge badge-secondary">Gran Total:</span></h2>
+                    <h2><span class="badge badge-secondary" th:text="#{txt.invoice.detail.view.price.purchase}"></span></h2>
                     <h2><span th:text="'$ ' + ${#numbers.formatDecimal(invoice.total,2,2)}" class="badge badge-success"></span></h2>
                 </div>
 
                 <div class="card border-info">
-                    <div class="card-header">Observaciones</div>
+                    <div class="card-header" th:text="#{txt.invoice.detail.view.remarks}"></div>
                     <div class="card-body">
                         <p class="card-text" th:text="${invoice.remark}" th:if="${not #strings.isEmpty(invoice.remark)}"></p>
                         <h4 class="card-title" th:if="${#strings.isEmpty(invoice.remark)}" th:text="'No hay observaciones'"></h4>

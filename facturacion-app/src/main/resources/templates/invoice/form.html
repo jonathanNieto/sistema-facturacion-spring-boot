@@ -10,29 +10,29 @@
             <div class="card-header" th:text="${title}"></div>
             <div class="card-body">
                 <h4 class="card-title"></h4>
-                <button class="btn btn-info mb-4" id="btn-back"><i class="fas fa-angle-double-left"></i> &nbsp;Volver</button>
+                <button class="btn btn-info mb-4" id="btn-back"><i class="fas fa-angle-double-left" th:utext="#{txt.invoice.form.view.back}"></i></button>
                 <form th:action="@{/invoice/form}" th:object="${invoice}" method="POST">
                     <div class="form-group row">
-                        <label for="client" class="col-sm-2 col-form-label">Cliente</label>
+                        <label for="client" class="col-sm-2 col-form-label" th:text="#{txt.invoice.form.view.client}"></label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="client" disabled="disabled" th:value="${invoice.client.name} + ' ' + ${invoice.client.lastname}"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="description" class="col-sm-2 col-form-label">Descripción</label>
+                        <label for="description" class="col-sm-2 col-form-label" th:text="#{txt.invoice.form.view.description}"></label>
                         <div class="col-sm-10">
                             <input type="text"  class="form-control" id="description" placeholder="Descripción" th:field="*{description}" th:errorclass="'form-control is-invalid'" />
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="remark" class="col-sm-2 col-form-label">Observación</label>
+                        <label for="remark" class="col-sm-2 col-form-label" th:text="#{txt.invoice.form.view.remarks}"></label>
                         <div class="col-sm-10">
                             <textarea class="form-control" id="remark" rows="3" th:field="*{remark}"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="find-product" class="col-sm-2 col-form-label">Buscar producto</label>
+                        <label for="find-product" class="col-sm-2 col-form-label" th:text="#{txt.invoice.form.view.search}"></label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="find-product" name="find-product" />
                         </div>
@@ -41,11 +41,11 @@
                     <table id="load-item-products" class="table table-hover table-sm table-striped">
                         <thead>
                             <tr>
-                                <td>Nombre</td>
-                                <td>Precio</td>
-                                <td>Cantidad</td>
-                                <td>Total</td>
-                                <td>Eliminar</td>
+                                <td th:text="#{txt.invoice.form.view.product}"></td>
+                                <td th:text="#{txt.invoice.form.view.price}"></td>
+                                <td th:text="#{txt.invoice.form.view.quantity}"></td>
+                                <td th:text="#{txt.invoice.form.view.total}"></td>
+                                <td th:text="#{txt.invoice.form.view.delete}"></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,7 +55,7 @@
                     <h5><span class="badge badge-secondary" id="total-due"><i>$&nbsp;</i>0</span></h5>
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <input type="submit" class="btn btn-primary" value="Crear Factura"/>
+                            <input type="submit" class="btn btn-primary" th:value="#{txt.invoice.form.view.submit}"/>
                         </div>
                     </div>
                 </form>
