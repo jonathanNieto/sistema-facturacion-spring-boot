@@ -1,5 +1,6 @@
 package com.jonatnie.facturacionapp.view.pdf;
 
+import java.awt.Color;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,15 +29,25 @@ public class InvoicePdfView extends AbstractPdfView {
 
         Invoice invoice = (Invoice) model.get("invoice");
         
+        
         PdfPTable pdfPTable =  new PdfPTable(1);
         pdfPTable.setSpacingAfter(20);
-        pdfPTable.addCell("Datos del cliente");
+    
+        PdfPCell cell = new PdfPCell(new Phrase("Datos del cliente"));
+        cell.setBackgroundColor(new Color(184, 218, 255));
+        cell.setPadding(8f);
+        pdfPTable.addCell(cell);
+    
         pdfPTable.addCell(invoice.getClient().getName() + " " + invoice.getClient().getLastname());
         pdfPTable.addCell(invoice.getClient().getEmail());
 
         PdfPTable pdfPTable2 = new PdfPTable(1);
         pdfPTable2.setSpacingAfter(20);
-        pdfPTable2.addCell("Datos de la factura");
+        cell = new PdfPCell(new Phrase("Datos de la factura"));
+        cell.setBackgroundColor(new Color(195, 230, 203));
+        cell.setPadding(8f);
+        pdfPTable2.addCell(cell);
+
         pdfPTable2.addCell("Folio: " + invoice.getId());
         pdfPTable2.addCell("Descripción: " + invoice.getDescription());
         pdfPTable2.addCell("Fecha: " + invoice.getCreateAt());
@@ -45,6 +56,7 @@ public class InvoicePdfView extends AbstractPdfView {
         document.add(pdfPTable2);
 
         PdfPTable pdfPTable3 = new PdfPTable(4);
+        pdfPTable3.setWidths(new float []{3.5f, 1, 1, 1});
         pdfPTable3.addCell("Producto");
         pdfPTable3.addCell("Precio");
         pdfPTable3.addCell("Cantidad");
@@ -53,11 +65,13 @@ public class InvoicePdfView extends AbstractPdfView {
         for (ItemInvoice item : invoice.getItemList()) {
             pdfPTable3.addCell(item.getProduct().getName());
             pdfPTable3.addCell("$ " + item.getProduct().getCost().toString());
-            pdfPTable3.addCell(item.getQuantity().toString());
+            cell = new PdfPCell(new Phrase(item.getQuantity().toString()));
+            cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+            pdfPTable3.addCell(cell);
             pdfPTable3.addCell("$ " + item.calculateAmount().toString());
         }
 
-        PdfPCell cell = new PdfPCell(new Phrase("Total: "));
+        cell = new PdfPCell(new Phrase("Total: "));
         cell.setColspan(3);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         pdfPTable3.addCell(cell);
